@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Location Search
+
+A modern web application built with Next.js that allows users to search and visualize locations on an interactive map. The application features automatic location detection, predictive search, and a clean, responsive interface.
+
+## Features
+
+- 🔍 **Predictive Search**: Real-time location suggestions as you type
+- 🗺️ **Interactive Map**: Visual representation of searched locations
+- 📍 **Automatic Location Detection**: Automatically centers the map on the user's location
+- ⚡ **Debounced Search**: Optimized search performance with debouncing
+- 🎨 **Modern UI**: Built with Shadcn UI components for a polished look
+- 🌓 **Dark Mode Support**: Automatically adapts to system preferences
+
+## Tech Stack
+
+- **Framework**: Next.js 14 with App Router
+- **UI Components**: Shadcn UI
+- **Styling**: Tailwind CSS
+- **Maps**: Pigeon Maps
+- **Geocoding**: OpenStreetMap Nominatim
+- **Type Safety**: TypeScript
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- Node.js 18.17 or later
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone [your-repository-url]
+   cd location-search
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Run the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## How It Works
+
+1. **Location Detection**:
+   - The application automatically detects the user's location using server-side IP geolocation
+   - Falls back to a default location if detection fails
+
+2. **Search Functionality**:
+   - Type in the search box to get real-time location suggestions
+   - Click on a suggestion or press Enter to center the map on the selected location
+   - The map updates instantly with a marker at the selected location
+
+3. **Map Interaction**:
+   - Interactive map with zoom and pan controls
+   - Marker indicates the current selected location
+   - Smooth transitions when moving between locations
+
+## Development
+
+### Project Structure
+
+```
+src/
+├── app/                 # Next.js app router
+│   ├── actions.ts       # Server actions
+│   └── page.tsx         # Main page component
+├── components/          # React components
+│   ├── MapSearch.tsx    # Main map and search component
+│   └── ui/             # Shadcn UI components
+└── lib/                # Utility functions
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+No environment variables are required for development. The application uses free services for all functionality.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contributing
 
-## Learn More
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is licensed under the MIT License - see the LICENSE file for details.
