@@ -11,6 +11,7 @@ import { Star, X } from "lucide-react";
 import { toast } from "sonner";
 import { WeatherInfo } from "./WeatherInfo";
 import { ExtendedForecast } from "./ExtendedForecast";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
 interface SearchResult {
   display_name: string;
@@ -25,6 +26,7 @@ interface FavoriteLocation {
 }
 
 export function MapSearch() {
+  const isMobile = useMediaQuery("(max-width: 640px)");
   const [searchQuery, setSearchQuery] = useState("");
   const [markerPosition, setMarkerPosition] = useState<[number, number]>([
     0, 0,
@@ -258,7 +260,7 @@ export function MapSearch() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="h-[300px] md:h-[500px] rounded-lg overflow-hidden">
                 <Map
-                  height={300}
+                  height={isMobile ? 300 : 500}
                   defaultCenter={markerPosition}
                   defaultZoom={11}
                   center={markerPosition}
