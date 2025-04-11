@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
-import { Map, Marker } from 'pigeon-maps';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { Card } from './ui/card';
-import { getUserLocation } from '@/app/actions';
-import { FavoritesSidebar } from './FavoritesSidebar';
-import { Star } from 'lucide-react';
-import { toast } from 'sonner';
-import { WeatherInfo } from './WeatherInfo';
-import { ExtendedForecast } from './ExtendedForecast';
+import { useState, useEffect, useRef } from "react";
+import { Map, Marker } from "pigeon-maps";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { Card } from "./ui/card";
+import { getUserLocation } from "@/app/actions";
+import { FavoritesSidebar } from "./FavoritesSidebar";
+import { Star } from "lucide-react";
+import { toast } from "sonner";
+import { WeatherInfo } from "./WeatherInfo";
+import { ExtendedForecast } from "./ExtendedForecast";
 
 interface SearchResult {
   display_name: string;
@@ -25,12 +25,16 @@ interface FavoriteLocation {
 }
 
 export function MapSearch() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [markerPosition, setMarkerPosition] = useState<[number, number]>([0, 0]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [markerPosition, setMarkerPosition] = useState<[number, number]>([
+    0, 0,
+  ]);
   const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<SearchResult[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
-  const [currentLocation, setCurrentLocation] = useState<SearchResult | null>(null);
+  const [currentLocation, setCurrentLocation] = useState<SearchResult | null>(
+    null
+  );
   const [favorites, setFavorites] = useState<FavoriteLocation[]>([]);
   const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -43,23 +47,23 @@ export function MapSearch() {
         setCurrentLocation({
           display_name: location.city.replace(/%20/g, " "),
           lat: location.lat.toString(),
-          lon: location.lon.toString()
+          lon: location.lon.toString(),
         });
       } catch (error) {
-        console.error('Error getting location:', error);
+        console.error("Error getting location:", error);
         // Set default to Santiago, Chile
         setMarkerPosition([-33.45694, -70.64827]);
         setCurrentLocation({
-          display_name: 'Santiago, Chile',
-          lat: '-33.45694',
-          lon: '-70.64827'
+          display_name: "Santiago, Chile",
+          lat: "-33.45694",
+          lon: "-70.64827",
         });
       }
     };
 
     setInitialLocation();
     // Load favorites from localStorage
-    const savedFavorites = localStorage.getItem('favoriteLocations');
+    const savedFavorites = localStorage.getItem("favoriteLocations");
     if (savedFavorites) {
       setFavorites(JSON.parse(savedFavorites));
     }
@@ -81,7 +85,7 @@ export function MapSearch() {
       const data = await response.json();
       setSuggestions(data);
     } catch (error) {
-      console.error('Error searching locations:', error);
+      console.error("Error searching locations:", error);
       setSuggestions([]);
     } finally {
       setIsLoading(false);
@@ -117,18 +121,21 @@ export function MapSearch() {
     setShowSuggestions(false);
     const firstSuggestion = suggestions[0];
     if (firstSuggestion) {
-      setMarkerPosition([parseFloat(firstSuggestion.lat), parseFloat(firstSuggestion.lon)]);
+      setMarkerPosition([
+        parseFloat(firstSuggestion.lat),
+        parseFloat(firstSuggestion.lon),
+      ]);
       setCurrentLocation(firstSuggestion);
     }
   };
 
   const addToFavorites = () => {
     if (!currentLocation) return;
-    
+
     const newFavorite = {
       display_name: currentLocation.display_name,
       lat: parseFloat(currentLocation.lat),
-      lon: parseFloat(currentLocation.lon)
+      lon: parseFloat(currentLocation.lon),
     };
 
     // Check if location is already in favorites
@@ -137,14 +144,14 @@ export function MapSearch() {
     );
 
     if (isDuplicate) {
-      toast.error('Location is already in favorites');
+      toast.error("Location is already in favorites");
       return;
     }
 
     const updatedFavorites = [...favorites, newFavorite];
     setFavorites(updatedFavorites);
-    localStorage.setItem('favoriteLocations', JSON.stringify(updatedFavorites));
-    toast.success('Location added to favorites');
+    localStorage.setItem("favoriteLocations", JSON.stringify(updatedFavorites));
+    toast.success("Location added to favorites");
   };
 
   const handleLocationSelect = (lat: number, lon: number) => {
@@ -158,7 +165,7 @@ export function MapSearch() {
       setCurrentLocation({
         display_name: selectedFavorite.display_name,
         lat: lat.toString(),
-        lon: lon.toString()
+        lon: lon.toString(),
       });
     }
   };
@@ -168,8 +175,8 @@ export function MapSearch() {
       (fav) => fav.lat !== lat || fav.lon !== lon
     );
     setFavorites(newFavorites);
-    localStorage.setItem('favoriteLocations', JSON.stringify(newFavorites));
-    toast.success('Location removed from favorites');
+    localStorage.setItem("favoriteLocations", JSON.stringify(newFavorites));
+    toast.success("Location removed from favorites");
   };
 
   useEffect(() => {
@@ -189,8 +196,8 @@ export function MapSearch() {
           onRemoveFavorite={removeFavorite}
         />
         <div className="flex-1">
-          <Card className="p-4">
-            <div className="flex flex-col gap-2 mb-4 relative">
+          <Card className="p-4 gap-4">
+            <div className="flex flex-col gap-2 relative">
               <div className="flex gap-2">
                 <div className="relative flex-1">
                   <Input
@@ -198,7 +205,7 @@ export function MapSearch() {
                     placeholder="Search location..."
                     value={searchQuery}
                     onChange={handleInputChange}
-                    onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                    onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                     onFocus={() => setShowSuggestions(true)}
                   />
                   {showSuggestions && suggestions.length > 0 && (
@@ -216,7 +223,7 @@ export function MapSearch() {
                   )}
                 </div>
                 <Button onClick={handleSearch} disabled={isLoading}>
-                  {isLoading ? 'Searching...' : 'Search'}
+                  {isLoading ? "Searching..." : "Search"}
                 </Button>
                 {currentLocation && (
                   <Button
@@ -232,7 +239,7 @@ export function MapSearch() {
               </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
-              <div className="h-[500px]">
+              <div className="h-[500px] rounded-lg overflow-hidden">
                 <Map
                   height={500}
                   defaultCenter={markerPosition}
@@ -244,10 +251,10 @@ export function MapSearch() {
               </div>
               {currentLocation && (
                 <div className="h-[500px] overflow-y-auto">
-                  <WeatherInfo 
-                    lat={parseFloat(currentLocation.lat)} 
+                  <WeatherInfo
+                    lat={parseFloat(currentLocation.lat)}
                     lon={parseFloat(currentLocation.lon)}
-                    displayName={currentLocation.display_name.split(',')[0]}
+                    displayName={currentLocation.display_name.split(",")[0]}
                   />
                 </div>
               )}
@@ -256,13 +263,11 @@ export function MapSearch() {
         </div>
       </div>
       {currentLocation && (
-        <Card className="p-4">
-          <ExtendedForecast
-            lat={parseFloat(currentLocation.lat)}
-            lon={parseFloat(currentLocation.lon)}
-          />
-        </Card>
+        <ExtendedForecast
+          lat={parseFloat(currentLocation.lat)}
+          lon={parseFloat(currentLocation.lon)}
+        />
       )}
     </div>
   );
-} 
+}
