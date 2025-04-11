@@ -9,6 +9,7 @@ import { getUserLocation } from '@/app/actions';
 import { FavoritesSidebar } from './FavoritesSidebar';
 import { Star } from 'lucide-react';
 import { toast } from 'sonner';
+import { WeatherInfo } from './WeatherInfo';
 
 interface SearchResult {
   display_name: string;
@@ -135,6 +136,18 @@ export function MapSearch() {
 
   const handleLocationSelect = (lat: number, lon: number) => {
     setMarkerPosition([lat, lon]);
+    // Find the favorite location in the favorites array
+    const selectedFavorite = favorites.find(
+      (fav) => fav.lat === lat && fav.lon === lon
+    );
+    if (selectedFavorite) {
+      // Create a SearchResult object to match the currentLocation type
+      setCurrentLocation({
+        display_name: selectedFavorite.display_name,
+        lat: lat.toString(),
+        lon: lon.toString()
+      });
+    }
   };
 
   useEffect(() => {
@@ -152,59 +165,67 @@ export function MapSearch() {
         favorites={favorites}
         setFavorites={setFavorites}
       />
-      <Card className="p-4 flex-1">
-        <div className="flex flex-col gap-2 mb-4 relative">
-          <div className="flex gap-2">
-            <div className="relative flex-1">
-              <Input
-                type="text"
-                placeholder="Search location..."
-                value={searchQuery}
-                onChange={handleInputChange}
-                onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
-                onFocus={() => setShowSuggestions(true)}
-              />
-              {showSuggestions && suggestions.length > 0 && (
-                <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 rounded-md shadow-lg max-h-60 overflow-auto">
-                  {suggestions.map((suggestion, index) => (
-                    <div
-                      key={index}
-                      className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
-                      onClick={() => handleSuggestionClick(suggestion)}
-                    >
-                      {suggestion.display_name}
-                    </div>
-                  ))}
-                </div>
+      <div className="flex-1 space-y-4">
+        <Card className="p-4">
+          <div className="flex flex-col gap-2 mb-4 relative">
+            <div className="flex gap-2">
+              <div className="relative flex-1">
+                <Input
+                  type="text"
+                  placeholder="Search location..."
+                  value={searchQuery}
+                  onChange={handleInputChange}
+                  onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+                  onFocus={() => setShowSuggestions(true)}
+                />
+                {showSuggestions && suggestions.length > 0 && (
+                  <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 rounded-md shadow-lg max-h-60 overflow-auto">
+                    {suggestions.map((suggestion, index) => (
+                      <div
+                        key={index}
+                        className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                        onClick={() => handleSuggestionClick(suggestion)}
+                      >
+                        {suggestion.display_name}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <Button onClick={handleSearch} disabled={isLoading}>
+                {isLoading ? 'Searching...' : 'Search'}
+              </Button>
+              {currentLocation && (
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={addToFavorites}
+                  title="Add to favorites"
+                  className="cursor-pointer"
+                >
+                  <Star className="h-4 w-4" />
+                </Button>
               )}
             </div>
-            <Button onClick={handleSearch} disabled={isLoading}>
-              {isLoading ? 'Searching...' : 'Search'}
-            </Button>
-            {currentLocation && (
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={addToFavorites}
-                title="Add to favorites"
-                className="cursor-pointer"
-              >
-                <Star className="h-4 w-4" />
-              </Button>
-            )}
           </div>
-        </div>
-        <div className="h-[500px] w-full">
-          <Map
-            height={500}
-            defaultCenter={markerPosition}
-            defaultZoom={11}
-            center={markerPosition}
-          >
-            <Marker width={50} anchor={markerPosition} />
-          </Map>
-        </div>
-      </Card>
+          <div className="h-[500px] w-full">
+            <Map
+              height={500}
+              defaultCenter={markerPosition}
+              defaultZoom={11}
+              center={markerPosition}
+            >
+              <Marker width={50} anchor={markerPosition} />
+            </Map>
+          </div>
+        </Card>
+        {currentLocation && (
+          <WeatherInfo 
+            lat={parseFloat(currentLocation.lat)} 
+            lon={parseFloat(currentLocation.lon)} 
+          />
+        )}
+      </div>
     </div>
   );
 } 
