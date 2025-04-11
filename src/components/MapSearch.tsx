@@ -255,10 +255,10 @@ export function MapSearch() {
                 )}
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="h-[500px] rounded-lg overflow-hidden">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="h-[300px] md:h-[500px] rounded-lg overflow-hidden">
                 <Map
-                  height={500}
+                  height={300}
                   defaultCenter={markerPosition}
                   defaultZoom={11}
                   center={markerPosition}
@@ -267,7 +267,7 @@ export function MapSearch() {
                 </Map>
               </div>
               {currentLocation && (
-                <div className="h-[500px] overflow-y-auto">
+                <div className="h-[100%] md:h-[500px] overflow-y-auto">
                   <WeatherInfo
                     lat={parseFloat(currentLocation.lat)}
                     lon={parseFloat(currentLocation.lon)}
