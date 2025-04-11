@@ -10,6 +10,7 @@ import { FavoritesSidebar } from './FavoritesSidebar';
 import { Star } from 'lucide-react';
 import { toast } from 'sonner';
 import { WeatherInfo } from './WeatherInfo';
+import { ExtendedForecast } from './ExtendedForecast';
 
 interface SearchResult {
   display_name: string;
@@ -220,10 +221,16 @@ export function MapSearch() {
           </div>
         </Card>
         {currentLocation && (
-          <WeatherInfo 
-            lat={parseFloat(currentLocation.lat)} 
-            lon={parseFloat(currentLocation.lon)} 
-          />
+          <>
+            <WeatherInfo 
+              lat={parseFloat(currentLocation.lat)} 
+              lon={parseFloat(currentLocation.lon)} 
+            />
+            <ExtendedForecast
+              lat={parseFloat(currentLocation.lat)}
+              lon={parseFloat(currentLocation.lon)}
+            />
+          </>
         )}
       </div>
     </div>
