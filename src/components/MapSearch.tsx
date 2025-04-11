@@ -246,7 +246,8 @@ export function MapSearch() {
                 <div className="h-[500px] overflow-y-auto">
                   <WeatherInfo 
                     lat={parseFloat(currentLocation.lat)} 
-                    lon={parseFloat(currentLocation.lon)} 
+                    lon={parseFloat(currentLocation.lon)}
+                    displayName={currentLocation.display_name.split(',')[0]}
                   />
                 </div>
               )}

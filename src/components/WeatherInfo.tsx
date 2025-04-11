@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { Card } from './ui/card';
-import { Loader2, Droplets, Wind, Gauge, Eye, Sunrise, Sunset, Thermometer } from 'lucide-react';
+import { Loader2, Droplets, Wind, Gauge, Eye, Sunrise, Sunset, Thermometer, MapPin } from 'lucide-react';
 
 interface WeatherData {
   main: {
@@ -27,14 +27,16 @@ interface WeatherData {
     sunrise: number;
     sunset: number;
   };
+  name: string;
 }
 
 interface WeatherInfoProps {
   lat: number;
   lon: number;
+  displayName?: string;
 }
 
-export function WeatherInfo({ lat, lon }: WeatherInfoProps) {
+export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -95,7 +97,13 @@ export function WeatherInfo({ lat, lon }: WeatherInfoProps) {
 
   return (
     <Card className="p-6 h-full">
-      <div className="space-y-6">
+      <div className="space-y-1">
+        {/* Location Name */}
+        <div className="flex items-center gap-2">
+          <MapPin className="w-5 h-5 text-red-500" />
+          <h2 className="text-xl font-semibold">{displayName || weather?.name}</h2>
+        </div>
+
         {/* Main Weather Info */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
