@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "./ui/card";
 import { Loader2 } from "lucide-react";
+import Image from "next/image";
 
 interface ForecastData {
   dt: number;
@@ -99,9 +100,11 @@ export function ExtendedForecast({ lat, lon }: ExtendedForecastProps) {
               className="flex flex-col items-center p-3 bg-gray-100 dark:bg-gray-800 rounded-lg"
             >
               <p className="font-medium">{dayName}</p>
-              <img
+              <Image
                 src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
                 alt={day.weather[0].description}
+                width={64}
+                height={64}
                 className="w-16 h-16"
               />
               <div className="text-center">

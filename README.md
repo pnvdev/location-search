@@ -30,12 +30,14 @@ A modern web application built with Next.js that allows users to search and visu
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/pnvdev/location-search.git
    cd location-search
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    # or
@@ -43,6 +45,7 @@ A modern web application built with Next.js that allows users to search and visu
    ```
 
 3. Run the development server:
+
    ```bash
    npm run dev
    # or
@@ -54,10 +57,12 @@ A modern web application built with Next.js that allows users to search and visu
 ## How It Works
 
 1. **Location Detection**:
+
    - The application automatically detects the user's location using server-side IP geolocation
    - Falls back to a default location if detection fails
 
 2. **Search Functionality**:
+
    - Type in the search box to get real-time location suggestions
    - Click on a suggestion or press Enter to center the map on the selected location
    - The map updates instantly with a marker at the selected location

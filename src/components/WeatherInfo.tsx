@@ -1,8 +1,19 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { Card } from './ui/card';
-import { Loader2, Droplets, Wind, Gauge, Eye, Sunrise, Sunset, Thermometer, MapPin } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { Card } from "./ui/card";
+import {
+  Loader2,
+  Droplets,
+  Wind,
+  Gauge,
+  Eye,
+  Sunrise,
+  Sunset,
+  Thermometer,
+  MapPin,
+} from "lucide-react";
+import Image from "next/image";
 
 interface WeatherData {
   main: {
@@ -49,16 +60,16 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
         const response = await fetch(
           `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}`
         );
-        
+
         if (!response.ok) {
-          throw new Error('Failed to fetch weather data');
+          throw new Error("Failed to fetch weather data");
         }
-        
+
         const data = await response.json();
         setWeather(data);
       } catch (err) {
-        setError('Failed to load weather data');
-        console.error('Error fetching weather:', err);
+        setError("Failed to load weather data");
+        console.error("Error fetching weather:", err);
       } finally {
         setIsLoading(false);
       }
@@ -86,11 +97,31 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
   if (!weather) return null;
 
   const formatTime = (timestamp: number) => {
-    return new Date(timestamp * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return new Date(timestamp * 1000).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
 
   const getWindDirection = (degrees: number) => {
-    const directions = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+    const directions = [
+      "N",
+      "NNE",
+      "NE",
+      "ENE",
+      "E",
+      "ESE",
+      "SE",
+      "SSE",
+      "S",
+      "SSW",
+      "SW",
+      "WSW",
+      "W",
+      "WNW",
+      "NW",
+      "NNW",
+    ];
     const index = Math.round(degrees / 22.5) % 16;
     return directions[index];
   };
@@ -101,18 +132,26 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
         {/* Location Name */}
         <div className="flex items-center gap-2">
           <MapPin className="w-5 h-5 text-red-500" />
-          <h2 className="text-xl font-semibold">{displayName || weather?.name}</h2>
+          <h2 className="text-xl font-semibold">
+            {displayName || weather?.name}
+          </h2>
         </div>
 
         {/* Main Weather Info */}
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h3 className="text-3xl font-bold">{Math.round(weather.main.temp)}°C</h3>
-            <p className="text-lg text-muted-foreground capitalize">{weather.weather[0].description}</p>
+            <h3 className="text-3xl font-bold">
+              {Math.round(weather.main.temp)}°C
+            </h3>
+            <p className="text-lg text-muted-foreground capitalize">
+              {weather.weather[0].description}
+            </p>
           </div>
-          <img
+          <Image
             src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@4x.png`}
             alt={weather.weather[0].description}
+            height={112}
+            width={112}
             className="w-28 h-28"
           />
         </div>
@@ -124,7 +163,9 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
               <Thermometer className="w-5 h-5 text-red-500 shrink-0" />
               <div>
                 <p className="text-sm text-muted-foreground">High</p>
-                <p className="font-medium">{Math.round(weather.main.temp_max)}°C</p>
+                <p className="font-medium">
+                  {Math.round(weather.main.temp_max)}°C
+                </p>
               </div>
             </div>
           </div>
@@ -133,7 +174,9 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
               <Thermometer className="w-5 h-5 text-blue-500 shrink-0" />
               <div>
                 <p className="text-sm text-muted-foreground">Low</p>
-                <p className="font-medium">{Math.round(weather.main.temp_min)}°C</p>
+                <p className="font-medium">
+                  {Math.round(weather.main.temp_min)}°C
+                </p>
               </div>
             </div>
           </div>
@@ -151,7 +194,9 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
               <Wind className="w-5 h-5 text-gray-500 shrink-0" />
               <div>
                 <p className="text-sm text-muted-foreground">Wind</p>
-                <p className="font-medium">{weather.wind.speed} m/s {getWindDirection(weather.wind.deg)}</p>
+                <p className="font-medium">
+                  {weather.wind.speed} m/s {getWindDirection(weather.wind.deg)}
+                </p>
               </div>
             </div>
           </div>
@@ -195,4 +240,4 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
       </div>
     </Card>
   );
-} 
+}

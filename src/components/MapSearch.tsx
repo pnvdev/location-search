@@ -165,7 +165,7 @@ export function MapSearch() {
       setCurrentLocation({
         display_name: selectedFavorite.display_name,
         lat: lat.toString(),
-        lon: lon.toString()
+        lon: lon.toString(),
       });
       // Update the search input with the favorite location name
       setSearchQuery(selectedFavorite.display_name);
