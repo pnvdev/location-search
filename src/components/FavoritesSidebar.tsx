@@ -50,7 +50,10 @@ export function FavoritesSidebar({
           <div
             key={index}
             className="flex items-center justify-between p-2 hover:bg-accent rounded-md cursor-pointer"
-            onClick={() => onLocationSelect(favorite.lat, favorite.lon)}
+            onClick={() => {
+              onLocationSelect(favorite.lat, favorite.lon);
+              setIsVisible(false);
+            }}
           >
             <div className="flex items-center gap-2 min-w-0">
               <span className="text-sm truncate flex-1">

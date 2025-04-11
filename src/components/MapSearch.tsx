@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { getUserLocation } from "@/app/actions";
 import { FavoritesSidebar } from "./FavoritesSidebar";
-import { Star } from "lucide-react";
+import { Star, X } from "lucide-react";
 import { toast } from "sonner";
 import { WeatherInfo } from "./WeatherInfo";
 import { ExtendedForecast } from "./ExtendedForecast";
@@ -209,7 +209,22 @@ export function MapSearch() {
                     onChange={handleInputChange}
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                     onFocus={() => setShowSuggestions(true)}
+                    className="pr-8"
                   />
+                  {searchQuery && (
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="absolute right-0 top-0 h-9 w-9"
+                      onClick={() => {
+                        setSearchQuery("");
+                        setSuggestions([]);
+                        setShowSuggestions(false);
+                      }}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  )}
                   {showSuggestions && suggestions.length > 0 && (
                     <div className="absolute z-10 w-full mt-1 bg-white dark:bg-gray-800 rounded-md shadow-lg max-h-60 overflow-auto">
                       {suggestions.map((suggestion, index) => (
@@ -224,9 +239,9 @@ export function MapSearch() {
                     </div>
                   )}
                 </div>
-                <Button onClick={handleSearch} disabled={isLoading}>
+                {/* <Button onClick={handleSearch} disabled={isLoading}>
                   {isLoading ? "Searching..." : "Search"}
-                </Button>
+                </Button> */}
                 {currentLocation && (
                   <Button
                     variant="outline"
