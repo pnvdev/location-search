@@ -31,7 +31,7 @@ A modern web application built with Next.js that allows users to search and visu
 
 1. Clone the repository:
    ```bash
-   git clone [your-repository-url]
+   git clone https://github.com/pnvdev/location-search.git
    cd location-search
    ```
 
