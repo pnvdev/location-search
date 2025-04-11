@@ -18,15 +18,15 @@ interface FavoritesSidebarProps {
 }
 
 export function FavoritesSidebar({ favorites, onLocationSelect, onRemoveFavorite }: FavoritesSidebarProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  if (isCollapsed) {
+  if (!isVisible) {
     return (
       <Button
         variant="ghost"
         size="icon"
         className="fixed left-4 top-4 z-50"
-        onClick={() => setIsCollapsed(false)}
+        onClick={() => setIsVisible(true)}
       >
         <Menu className="h-5 w-5" />
       </Button>
@@ -40,7 +40,7 @@ export function FavoritesSidebar({ favorites, onLocationSelect, onRemoveFavorite
         <Button
           variant="ghost"
           size="icon"
-          onClick={() => setIsCollapsed(true)}
+          onClick={() => setIsVisible(false)}
         >
           <X className="h-5 w-5" />
         </Button>
