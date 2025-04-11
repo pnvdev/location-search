@@ -1,9 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import { X } from 'lucide-react';
-import { toast } from 'sonner';
+import { Menu, X } from 'lucide-react';
 
 interface FavoriteLocation {
   display_name: string;
@@ -12,49 +12,66 @@ interface FavoriteLocation {
 }
 
 interface FavoritesSidebarProps {
-  onLocationSelect: (lat: number, lon: number) => void;
   favorites: FavoriteLocation[];
-  setFavorites: (favorites: FavoriteLocation[]) => void;
+  onLocationSelect: (lat: number, lon: number) => void;
+  onRemoveFavorite: (lat: number, lon: number) => void;
 }
 
-export function FavoritesSidebar({ onLocationSelect, favorites, setFavorites }: FavoritesSidebarProps) {
-  const removeFavorite = (index: number) => {
-    const newFavorites = [...favorites];
-    const removedLocation = newFavorites.splice(index, 1)[0];
-    setFavorites(newFavorites);
-    localStorage.setItem('favoriteLocations', JSON.stringify(newFavorites));
-    toast.success(`Removed ${removedLocation.display_name} from favorites`);
-  };
+export function FavoritesSidebar({ favorites, onLocationSelect, onRemoveFavorite }: FavoritesSidebarProps) {
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  if (isCollapsed) {
+    return (
+      <Button
+        variant="ghost"
+        size="icon"
+        className="fixed left-4 top-4 z-50"
+        onClick={() => setIsCollapsed(false)}
+      >
+        <Menu className="h-5 w-5" />
+      </Button>
+    );
+  }
 
   return (
-    <Card className="p-4 w-64 h-[600px] flex flex-col">
-      <h2 className="text-lg font-semibold mb-4">Favorite Locations</h2>
-      <div className="flex-1 overflow-y-auto space-y-2 pr-2">
-        {favorites.length === 0 ? (
-          <p className="text-sm text-gray-500">No favorite locations yet</p>
-        ) : (
-          favorites.map((favorite, index) => (
-            <div
-              key={index}
-              className="flex items-center justify-between p-2 bg-gray-100 dark:bg-gray-800 rounded-md hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
-            >
-              <Button
-                variant="ghost"
-                className="flex-1 text-left truncate"
-                onClick={() => onLocationSelect(favorite.lat, favorite.lon)}
-              >
-                <span className="truncate">{favorite.display_name}</span>
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => removeFavorite(index)}
-                className="shrink-0"
-              >
-                <X className="h-4 w-4" />
-              </Button>
+    <Card className="fixed left-0 top-0 h-full w-64 p-4 z-50 bg-background">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg font-semibold">Favorite Locations</h2>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsCollapsed(true)}
+        >
+          <X className="h-5 w-5" />
+        </Button>
+      </div>
+      <div className="space-y-2 overflow-y-auto max-h-[calc(100vh-8rem)]">
+        {favorites.map((favorite, index) => (
+          <div
+            key={index}
+            className="flex items-center justify-between p-2 hover:bg-accent rounded-md cursor-pointer"
+            onClick={() => onLocationSelect(favorite.lat, favorite.lon)}
+          >
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-sm truncate flex-1">{favorite.display_name}</span>
             </div>
-          ))
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-6 w-6 shrink-0"
+              onClick={(e) => {
+                e.stopPropagation();
+                onRemoveFavorite(favorite.lat, favorite.lon);
+              }}
+            >
+              ×
+            </Button>
+          </div>
+        ))}
+        {favorites.length === 0 && (
+          <p className="text-sm text-muted-foreground text-center">
+            No favorite locations yet
+          </p>
         )}
       </div>
     </Card>

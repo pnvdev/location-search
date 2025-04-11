@@ -151,6 +151,15 @@ export function MapSearch() {
     }
   };
 
+  const removeFavorite = (lat: number, lon: number) => {
+    const newFavorites = favorites.filter(
+      (fav) => fav.lat !== lat || fav.lon !== lon
+    );
+    setFavorites(newFavorites);
+    localStorage.setItem('favoriteLocations', JSON.stringify(newFavorites));
+    toast.success('Location removed from favorites');
+  };
+
   useEffect(() => {
     return () => {
       if (debounceTimeout.current) {
@@ -161,10 +170,10 @@ export function MapSearch() {
 
   return (
     <div className="flex gap-4">
-      <FavoritesSidebar 
-        onLocationSelect={handleLocationSelect} 
+      <FavoritesSidebar
         favorites={favorites}
-        setFavorites={setFavorites}
+        onLocationSelect={handleLocationSelect}
+        onRemoveFavorite={removeFavorite}
       />
       <div className="flex-1 space-y-4">
         <Card className="p-4">
