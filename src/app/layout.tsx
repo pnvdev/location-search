@@ -6,8 +6,8 @@ import { Toaster } from "sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Location Search",
-  description: "Search and visualize locations on an interactive map",
+  title: "Weather Location Search",
+  description: "Search and visualize locations weather on an interactive map",
 };
 
 export default function RootLayout({
