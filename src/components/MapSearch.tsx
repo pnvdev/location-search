@@ -39,9 +39,21 @@ export function MapSearch() {
       try {
         const location = await getUserLocation();
         setMarkerPosition([location.lat, location.lon]);
+        // Set current location with default data
+        setCurrentLocation({
+          display_name: 'Your Location',
+          lat: location.lat.toString(),
+          lon: location.lon.toString()
+        });
       } catch (error) {
         console.error('Error getting location:', error);
-        setMarkerPosition([-33.45694, -70.64827]); // Santiago, Chile
+        // Set default to Santiago, Chile
+        setMarkerPosition([-33.45694, -70.64827]);
+        setCurrentLocation({
+          display_name: 'Santiago, Chile',
+          lat: '-33.45694',
+          lon: '-70.64827'
+        });
       }
     };
 
