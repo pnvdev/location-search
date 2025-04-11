@@ -158,7 +158,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
 
         {/* Weather Metrics Grid */}
         <div className="grid grid-cols-2 gap-4">
-          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 md:py-0 rounded-lg">
+          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 rounded-lg">
             <div className="flex items-center gap-3">
               <Thermometer className="w-5 h-5 text-red-500 shrink-0" />
               <div>
@@ -169,7 +169,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 md:py-0 rounded-lg">
+          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 rounded-lg">
             <div className="flex items-center gap-3">
               <Thermometer className="w-5 h-5 text-blue-500 shrink-0" />
               <div>
@@ -180,7 +180,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 md:py-0 rounded-lg">
+          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 rounded-lg">
             <div className="flex items-center gap-3">
               <Droplets className="w-5 h-5 text-blue-500 shrink-0" />
               <div>
@@ -189,7 +189,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 md:py-0 rounded-lg">
+          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 rounded-lg">
             <div className="flex items-center gap-3">
               <Wind className="w-5 h-5 text-gray-500 shrink-0" />
               <div>
@@ -200,7 +200,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 md:py-0 rounded-lg">
+          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 rounded-lg">
             <div className="flex items-center gap-3">
               <Gauge className="w-5 h-5 text-purple-500 shrink-0" />
               <div>
@@ -209,7 +209,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 md:py-0 rounded-lg">
+          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 rounded-lg">
             <div className="flex items-center gap-3">
               <Eye className="w-5 h-5 text-amber-500 shrink-0" />
               <div>
@@ -218,7 +218,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 md:py-0 rounded-lg">
+          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 rounded-lg">
             <div className="flex items-center gap-3">
               <Sunrise className="w-5 h-5 text-yellow-500 shrink-0" />
               <div>
@@ -227,7 +227,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 md:py-0 rounded-lg">
+          <div className="flex items-center justify-between bg-muted/50 p-1 py-2 md:p-3 rounded-lg">
             <div className="flex items-center gap-3">
               <Sunset className="w-5 h-5 text-orange-500 shrink-0" />
               <div>
