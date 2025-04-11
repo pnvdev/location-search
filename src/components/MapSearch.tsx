@@ -29,7 +29,7 @@ export function MapSearch() {
   const [markerPosition, setMarkerPosition] = useState<[number, number]>([
     0, 0,
   ]);
-  const [isLoading, setIsLoading] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<SearchResult[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [currentLocation, setCurrentLocation] = useState<SearchResult | null>(
@@ -75,7 +75,7 @@ export function MapSearch() {
       return;
     }
 
-    setIsLoading(true);
+    // setIsLoading(true);
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
@@ -88,7 +88,7 @@ export function MapSearch() {
       console.error("Error searching locations:", error);
       setSuggestions([]);
     } finally {
-      setIsLoading(false);
+      // setIsLoading(false);
     }
   };
 
