@@ -41,7 +41,7 @@ export function MapSearch() {
         setMarkerPosition([location.lat, location.lon]);
         // Set current location with default data
         setCurrentLocation({
-          display_name: 'Your Location',
+          display_name: location.city,
           lat: location.lat.toString(),
           lon: location.lon.toString()
         });
