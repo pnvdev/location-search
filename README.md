@@ -1,4 +1,4 @@
-# Location Search
+# Weather Location Search
 
 A modern web application built with Next.js that allows users to search and visualize locations on an interactive map. The application features automatic location detection, predictive search, and a clean, responsive interface.
 
