@@ -13,7 +13,7 @@ export type TranslationKey =
   | "weather.low"
   // | "favorites.title"
   // | "favorites.empty"
-  // | "forecast.title"
+  | "forecast.title"
   | "page.title"
   | "page.locale"
 
@@ -30,6 +30,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     "weather.wind" : "Wind",
     "weather.pressure" : "Pressure",
     "page.locale" : "en",
+    "forecast.title": "Extended Forecast",
   },
   es: {
     // Page
@@ -43,6 +44,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     "weather.wind" : "Viento",
     "weather.pressure": "Presión",
     "page.locale" : "es",
+    "forecast.title": "Pronóstico Extendido",
   },
 }
 
