@@ -14,6 +14,7 @@ import {
   MapPin,
 } from "lucide-react";
 import Image from "next/image";
+import { useTranslation } from "@/hooks/useTranslations";
 
 interface WeatherData {
   main: {
@@ -48,6 +49,7 @@ interface WeatherInfoProps {
 }
 
 export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
+  const { t } = useTranslation();
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -162,7 +164,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
             <div className="flex items-center gap-3">
               <Thermometer className="w-5 h-5 text-red-500 shrink-0" />
               <div>
-                <p className="text-sm text-muted-foreground">High</p>
+                <p className="text-sm text-muted-foreground">{t("weather.high")}</p>
                 <p className="font-medium">
                   {Math.round(weather.main.temp_max)}°C
                 </p>
@@ -173,7 +175,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
             <div className="flex items-center gap-3">
               <Thermometer className="w-5 h-5 text-blue-500 shrink-0" />
               <div>
-                <p className="text-sm text-muted-foreground">Low</p>
+                <p className="text-sm text-muted-foreground">{t("weather.low")}</p>
                 <p className="font-medium">
                   {Math.round(weather.main.temp_min)}°C
                 </p>
@@ -184,7 +186,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
             <div className="flex items-center gap-3">
               <Droplets className="w-5 h-5 text-blue-500 shrink-0" />
               <div>
-                <p className="text-sm text-muted-foreground">Humidity</p>
+                <p className="text-sm text-muted-foreground">{t("weather.humidity")}</p>
                 <p className="font-medium">{weather.main.humidity}%</p>
               </div>
             </div>
@@ -193,7 +195,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
             <div className="flex items-center gap-3">
               <Wind className="w-5 h-5 text-gray-500 shrink-0" />
               <div>
-                <p className="text-sm text-muted-foreground">Wind</p>
+                <p className="text-sm text-muted-foreground">{t("weather.wind")}</p>
                 <p className="font-medium">
                   {weather.wind.speed} m/s {getWindDirection(weather.wind.deg)}
                 </p>
@@ -204,7 +206,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
             <div className="flex items-center gap-3">
               <Gauge className="w-5 h-5 text-purple-500 shrink-0" />
               <div>
-                <p className="text-sm text-muted-foreground">Pressure</p>
+                <p className="text-sm text-muted-foreground">{t("weather.pressure")}</p>
                 <p className="font-medium">{weather.main.pressure} hPa</p>
               </div>
             </div>
@@ -213,7 +215,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
             <div className="flex items-center gap-3">
               <Eye className="w-5 h-5 text-amber-500 shrink-0" />
               <div>
-                <p className="text-sm text-muted-foreground">Visibility</p>
+                <p className="text-sm text-muted-foreground">{t("weather.visibility")}</p>
                 <p className="font-medium">{weather.visibility / 1000} km</p>
               </div>
             </div>
@@ -222,7 +224,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
             <div className="flex items-center gap-3">
               <Sunrise className="w-5 h-5 text-yellow-500 shrink-0" />
               <div>
-                <p className="text-sm text-muted-foreground">Sunrise</p>
+                <p className="text-sm text-muted-foreground">{t("weather.sunrise")}</p>
                 <p className="font-medium">{formatTime(weather.sys.sunrise)}</p>
               </div>
             </div>
@@ -231,7 +233,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
             <div className="flex items-center gap-3">
               <Sunset className="w-5 h-5 text-orange-500 shrink-0" />
               <div>
-                <p className="text-sm text-muted-foreground">Sunset</p>
+                <p className="text-sm text-muted-foreground">{t("weather.sunset")}</p>
                 <p className="font-medium">{formatTime(weather.sys.sunset)}</p>
               </div>
             </div>

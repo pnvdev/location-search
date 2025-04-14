@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Card } from "./ui/card";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
+import { useTranslation } from "@/hooks/useTranslations";
 
 interface ForecastData {
   dt: number;
@@ -27,6 +28,7 @@ interface ExtendedForecastProps {
 }
 
 export function ExtendedForecast({ lat, lon }: ExtendedForecastProps) {
+  const { t } = useTranslation();
   const [forecast, setForecast] = useState<ForecastData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -85,21 +87,23 @@ export function ExtendedForecast({ lat, lon }: ExtendedForecastProps) {
   if (!forecast.length) return null;
 
   return (
-    <Card className="p-4 gap-3">
-      <h3 className="text-lg font-semibold">5-Day Forecast</h3>
+    <Card className="p-4 mt-4">
+      <h3 className="text-lg font-semibold mb-2">{t("forecast.title")}</h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {forecast.map((day, index) => {
           const date = new Date(day.dt * 1000);
-          const dayName = date.toLocaleDateString("en-US", {
+          
+          const dayName = date.toLocaleDateString(t("page.locale"), {
             weekday: "short",
-          });
+          });          
+          const dayNameUpper = dayName.charAt(0).toUpperCase() + dayName.slice(1);
 
           return (
             <div
               key={index}
               className="flex flex-col items-center p-3 bg-gray-100 dark:bg-gray-800 rounded-lg"
             >
-              <p className="font-medium">{dayName}</p>
+              <p className="font-medium">{dayNameUpper}</p>
               <Image
                 src={`https://openweathermap.org/img/wn/${day.weather[0].icon}@2x.png`}
                 alt={day.weather[0].description}
@@ -115,8 +119,8 @@ export function ExtendedForecast({ lat, lon }: ExtendedForecastProps) {
                   {day.weather[0].description}
                 </p>
                 <div className="flex justify-center gap-2 mt-1 text-sm">
-                  <span>H: {day.main.humidity}%</span>
-                  <span>W: {day.wind.speed} m/s</span>
+                  <span>{t("weather.humidity").charAt(0)}: {day.main.humidity}%</span>
+                  <span>{t("weather.wind").charAt(0)}: {day.wind.speed} m/s</span>
                 </div>
               </div>
             </div>

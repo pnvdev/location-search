@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { WeatherInfo } from "./WeatherInfo";
 import { ExtendedForecast } from "./ExtendedForecast";
 import { useMediaQuery } from "@/hooks/use-media-query";
-// import { useLanguage } from "@/context/language-context";
+import { useTranslation } from "@/hooks/useTranslations";
 
 interface SearchResult {
   display_name: string;
@@ -27,14 +27,13 @@ interface FavoriteLocation {
 }
 
 export function MapSearch() {
-  // const { language, setLanguage } = useLanguage()
+  const { t } = useTranslation();
   
   const isMobile = useMediaQuery("(max-width: 640px)");
   const [searchQuery, setSearchQuery] = useState("");
   const [markerPosition, setMarkerPosition] = useState<[number, number]>([
     0, 0,
   ]);
-  // const [isLoading, setIsLoading] = useState(false);
   const [suggestions, setSuggestions] = useState<SearchResult[]>([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [currentLocation, setCurrentLocation] = useState<SearchResult | null>(
@@ -48,7 +47,6 @@ export function MapSearch() {
       try {
         const location = await getUserLocation();
         setMarkerPosition([location.lat, location.lon]);
-        // Set current location with default data
         setCurrentLocation({
           display_name: location.city.replace(/%20/g, " "),
           lat: location.lat.toString(),
@@ -56,7 +54,6 @@ export function MapSearch() {
         });
       } catch (error) {
         console.error("Error getting location:", error);
-        // Set default to Santiago, Chile
         setMarkerPosition([-33.45694, -70.64827]);
         setCurrentLocation({
           display_name: "Santiago, Chile",
@@ -67,7 +64,6 @@ export function MapSearch() {
     };
 
     setInitialLocation();
-    // Load favorites from localStorage
     const savedFavorites = localStorage.getItem("favoriteLocations");
     if (savedFavorites) {
       setFavorites(JSON.parse(savedFavorites));
@@ -80,7 +76,6 @@ export function MapSearch() {
       return;
     }
 
-    // setIsLoading(true);
     try {
       const response = await fetch(
         `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
@@ -92,8 +87,6 @@ export function MapSearch() {
     } catch (error) {
       console.error("Error searching locations:", error);
       setSuggestions([]);
-    } finally {
-      // setIsLoading(false);
     }
   };
 
@@ -143,7 +136,6 @@ export function MapSearch() {
       lon: parseFloat(currentLocation.lon),
     };
 
-    // Check if location is already in favorites
     const isDuplicate = favorites.some(
       (fav) => fav.lat === newFavorite.lat && fav.lon === newFavorite.lon
     );
@@ -161,18 +153,15 @@ export function MapSearch() {
 
   const handleLocationSelect = (lat: number, lon: number) => {
     setMarkerPosition([lat, lon]);
-    // Find the favorite location in the favorites array
     const selectedFavorite = favorites.find(
       (fav) => fav.lat === lat && fav.lon === lon
     );
     if (selectedFavorite) {
-      // Create a SearchResult object to match the currentLocation type
       setCurrentLocation({
         display_name: selectedFavorite.display_name,
         lat: lat.toString(),
         lon: lon.toString(),
       });
-      // Update the search input with the favorite location name
       setSearchQuery(selectedFavorite.display_name);
     }
   };
@@ -209,7 +198,7 @@ export function MapSearch() {
                 <div className="relative flex-1">
                   <Input
                     type="text"
-                    placeholder="Search location..."
+                    placeholder={t("search.placeholder")}
                     value={searchQuery}
                     onChange={handleInputChange}
                     onKeyDown={(e) => e.key === "Enter" && handleSearch()}
@@ -244,9 +233,6 @@ export function MapSearch() {
                     </div>
                   )}
                 </div>
-                {/* <Button onClick={handleSearch} disabled={isLoading}>
-                  {isLoading ? "Searching..." : "Search"}
-                </Button> */}
                 {currentLocation && (
                   <Button
                     variant="outline"

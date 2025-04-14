@@ -1,18 +1,20 @@
 "use client";
 
 import { MapSearch } from "@/components/MapSearch";
-import { useLanguage } from "@/context/language-context"
-import { translations } from "@/lib/translations"
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useTranslation } from "@/hooks/useTranslations";
 
 export default function Home() {
-  const { language } = useLanguage()
-  const t = translations[language]
+  const { t } = useTranslation();
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-8">
       <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
+        <div className="flex justify-end mb-4">
+          <LanguageSwitcher />
+        </div>
         <h1 className="text-4xl font-bold mb-6 text-center">
-          {t.pageTitle}
+          {t("page.title")}
         </h1>
         <MapSearch />
       </div>
