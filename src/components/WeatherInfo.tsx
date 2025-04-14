@@ -53,6 +53,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const lang = t("page.locale");
 
   useEffect(() => {
     const fetchWeather = async () => {
@@ -60,7 +61,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
         setIsLoading(true);
         setError(null);
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}`
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}&lang=${lang}`
         );
 
         if (!response.ok) {
@@ -78,7 +79,7 @@ export function WeatherInfo({ lat, lon, displayName }: WeatherInfoProps) {
     };
 
     fetchWeather();
-  }, [lat, lon]);
+  }, [lat, lon, lang]);
 
   if (isLoading) {
     return (

@@ -32,15 +32,17 @@ export function ExtendedForecast({ lat, lon }: ExtendedForecastProps) {
   const [forecast, setForecast] = useState<ForecastData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const lang = t("page.locale");
 
   useEffect(() => {
     const fetchForecast = async () => {
       try {
         setIsLoading(true);
         setError(null);
-        const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}`
-        );
+        // const lang = t("page.locale");
+        const url = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}&lang=${lang}`;
+        console.log("Fetching forecast from:", url); // Debugging line
+        const response = await fetch(url);
 
         if (!response.ok) {
           throw new Error("Failed to fetch forecast data");
@@ -64,7 +66,7 @@ export function ExtendedForecast({ lat, lon }: ExtendedForecastProps) {
     };
 
     fetchForecast();
-  }, [lat, lon]);
+  }, [lat, lon, lang]);
 
   if (isLoading) {
     return (
