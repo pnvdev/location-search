@@ -3,6 +3,7 @@
 import { MapSearch } from "@/components/MapSearch";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTranslation } from "@/hooks/useTranslations";
+import { Footer } from "@/components/Footer";
 
 export default function Home() {
   const { t } = useTranslation();
@@ -18,6 +19,7 @@ export default function Home() {
         </h1>
         <MapSearch />
       </div>
+      <Footer />
     </main>
   );
 }

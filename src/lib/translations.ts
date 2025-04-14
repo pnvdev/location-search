@@ -2,7 +2,6 @@ export type Language = "en" | "es"
 
 export type TranslationKey = 
   | "search.placeholder"
-  // | "weather.temperature"
   | "weather.humidity"
   | "weather.wind"
   | "weather.pressure"
@@ -16,6 +15,7 @@ export type TranslationKey =
   | "forecast.title"
   | "page.title"
   | "page.locale"
+  | "footer.credits";
 
 export const translations: Record<Language, Record<TranslationKey, string>> = {
   en: {
@@ -34,6 +34,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     "search.placeholder": "Search for a city...",
     "favorites.title": "Favorites",
     "favorites.empty": "No favorites yet",
+    "footer.credits" : "Made with ❤️ by",
   },
   es: {
     // Page
@@ -42,7 +43,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     "weather.sunset": "Atardecer",
     "weather.high": "Máxima",
     "weather.low": "Mínima",
-    "page.title": "Aplicación del Clima",
+    "page.title": "App de Clima",
     "weather.humidity" : "Humedad",
     "weather.wind" : "Viento",
     "weather.pressure": "Presión",
@@ -51,6 +52,7 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     "search.placeholder": "Buscar una ciudad...",
     "favorites.title": "Favoritos",
     "favorites.empty": "No hay favoritos aún",
+    "footer.credits" : "Creado con ❤️ por",
   },
 }
 
