@@ -1,7 +1,7 @@
 export type Language = "en" | "es"
 
 export type TranslationKey = 
-  // | "search.placeholder"
+  | "search.placeholder"
   // | "weather.temperature"
   | "weather.humidity"
   | "weather.wind"
@@ -11,8 +11,8 @@ export type TranslationKey =
   | "weather.sunset"
   | "weather.high"
   | "weather.low"
-  // | "favorites.title"
-  // | "favorites.empty"
+  | "favorites.title"
+  | "favorites.empty"
   | "forecast.title"
   | "page.title"
   | "page.locale"
@@ -31,6 +31,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     "weather.pressure" : "Pressure",
     "page.locale" : "en",
     "forecast.title": "Extended Forecast",
+    "search.placeholder": "Search for a city...",
+    "favorites.title": "Favorites",
+    "favorites.empty": "No favorites yet",
   },
   es: {
     // Page
@@ -45,6 +48,9 @@ export const translations: Record<Language, Record<TranslationKey, string>> = {
     "weather.pressure": "Presión",
     "page.locale" : "es",
     "forecast.title": "Pronóstico Extendido",
+    "search.placeholder": "Buscar una ciudad...",
+    "favorites.title": "Favoritos",
+    "favorites.empty": "No hay favoritos aún",
   },
 }
 
