@@ -1,8 +1,8 @@
 export type Language = "en" | "es"
 
 export type TranslationKey = 
-  | "search.placeholder"
-  | "weather.temperature"
+  // | "search.placeholder"
+  // | "weather.temperature"
   | "weather.humidity"
   | "weather.wind"
   | "weather.pressure"
@@ -11,9 +11,9 @@ export type TranslationKey =
   | "weather.sunset"
   | "weather.high"
   | "weather.low"
-  | "favorites.title"
-  | "favorites.empty"
-  | "forecast.title"
+  // | "favorites.title"
+  // | "favorites.empty"
+  // | "forecast.title"
   | "page.title"
   | "page.locale"
 
