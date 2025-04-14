@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import { WeatherInfo } from "./WeatherInfo";
 import { ExtendedForecast } from "./ExtendedForecast";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { useLanguage } from "@/context/language-context";
 
 interface SearchResult {
   display_name: string;
@@ -26,6 +27,8 @@ interface FavoriteLocation {
 }
 
 export function MapSearch() {
+  const { language, setLanguage } = useLanguage()
+  
   const isMobile = useMediaQuery("(max-width: 640px)");
   const [searchQuery, setSearchQuery] = useState("");
   const [markerPosition, setMarkerPosition] = useState<[number, number]>([
